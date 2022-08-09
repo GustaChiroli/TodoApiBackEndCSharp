@@ -1,3 +1,6 @@
-Dar banho no cachorro;Dar banho no Tobi;false;28/12/2022;04/08/2022
-Comparar shampoo;Passar no petshop e comprar shampoo para dar banho no Tobi;false;27/12;2022;04/08/2022
-Ligar para a operadora;Ligar para a operadora e aumentar meu pacote de dados;true;25/07/2022;20/07/2022
+Dar banho no cachorro;Dar banho no Tobi;false;28/12/2022;04/08/2022;
+Comparar shampoo;Passar no petshop e comprar shampoo para dar banho no Tobi;false;27/06/2022;08/04/2022;
+Ligar para a operadora;Ligar para a operadora e aumentar meu pacote de dados;true;27/07/2022;20/07/2022;
+pagar o boleto;Passar na loterica e pagar boleto;false;09/08/2022;03/07/2022;
+IrPara a academia;Fazer academia;false;09/08/2022;09/08/2022;
+comprar queijo;ir no mercado;true;06/08/2022;07/08/2022;

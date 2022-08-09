@@ -14,34 +14,55 @@ namespace TodoApi
         static void Main(string[] args)
         {
             var fileAdress = "todoList.txt";
+            
+            WriteOnTodoList(fileAdress);
+            ReadTodoList(fileAdress);
 
-            using (var fileStream = new FileStream(fileAdress, FileMode.Open))
-            using(var reader = new StreamReader(fileStream))
+
+            Console.ReadLine();
+
+        }
+
+        private static void WriteOnTodoList(string fileAdress)
+        {
+            var response = "";
+            //meotodo para escrever no arquivo
+            using (var inFlow = Console.OpenStandardInput())
+            using (var fs = new FileStream(fileAdress, FileMode.Append))
             {
-                while(!reader.EndOfStream)
+                var buffer = new byte[1024];
+                //condicional que para de escrever quando digitado end
+                while (!response.StartsWith("end"))
                 {
-                    var line = reader.ReadLine();
-                    Console.WriteLine(line);
-                    var Todo = ConvertStringToTodoList(line);
+                    StreamWriter sw = new StreamWriter(fs);
+                    var readBytes = inFlow.Read(buffer, 0, 1024);
+                    response = Encoding.UTF8.GetString(buffer);
+                    //evita que end seja escrito no arquivo
+                    if (!response.StartsWith("end"))
+                    {
+                        Console.WriteLine($"resposta: {response}");
+                        fs.Write(buffer, 0, readBytes);
+                        fs.Flush();
+                    }
                 }
             }
-            Console.ReadLine();
         }
-        public static TodoClass ConvertStringToTodoList(string line)
+
+        private static void ReadTodoList(string fileAdress)
         {
-            var split = line.Split(';');
-            var title = split[0];
-            var description = split[1];
-            var isDone = split[2];
-            var date = split[3];
-            var creationDate = split[4];
-
-            var isDoneToBool = Convert.ToBoolean(isDone);
-            var dateToDateTime = Convert.ToDateTime(date);
-            var creationDateToDateTime = Convert.ToDateTime(creationDate);
-
-            var result = new TodoClass(title, description, isDoneToBool, dateToDateTime, creationDateToDateTime);
-            return result;
+            using (var fileStream = new FileStream(fileAdress, FileMode.Open))
+            using (var reader = new StreamReader(fileStream))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var todo = TodoList.ConvertTodoList(line);
+                    Console.WriteLine($"titulo: {todo.title}");
+                    Console.WriteLine($"data criação: {todo.creationDateTime.ToString("dd-MM-yyyy")}");
+                    Console.WriteLine($"data todo: {todo.date.Date.ToString("dd-MM-yyyy")}");
+                    Console.WriteLine("=============================");
+                }
+            }
         }
     }
    
